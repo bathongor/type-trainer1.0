@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+  padding: 8rem;
+  /* background-image: url('/background.png'); */
+  background-size: cover;
+}
+
+#main-logo{
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#given-text{
+  font-size: 1.6rem;
+  border: 1px solid black;
+  padding: 2rem 4rem;
+  border-radius: 2rem;
+  background-color: white;
+}
+
+#text-input{
+  height: 5rem;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.stats{
+  font-size: 1.2rem;
+  width: 700px;
+  margin: auto;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1rem;
+  background-color: white;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.37);
+  border-radius: 1rem;
+}
+
+.stat-title{
+  font-weight: bold;
+}
+
+.result{
+  color: rgb(15, 122, 15);
+}
+
+#flags{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+#flags img{
+  width: 2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
