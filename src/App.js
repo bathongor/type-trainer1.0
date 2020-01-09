@@ -62,20 +62,33 @@ function App(props) {
         updatedTask[wordCount].status = "success";
         setTask(updatedTask);
         setCorrectWordCount(correctWordCount+1);
+        setWordCount(wordCount+1);
+        setText('');
       }else{
         updatedTask[wordCount].status = "fail";
         setTask(updatedTask);
       }
-      setWordCount(wordCount+1);
-      setText('');
-      if(wordCount === task.length-1) {
-        // alert("Done");
-        setIsGoing(false);
-        sendPerformanceData(Math.round((correctWordCount+1)/(wordCount+1)*100), Math.floor((correctWordCount+1)/(time/60)));
-        getPerformance(Math.round((correctWordCount+1)/(wordCount+1)*100), Math.floor((correctWordCount+1)/(time/60)));
-      }
     }else{
       setText(val);
+      console.log(val[val.length-1], wordCount, task.length);
+      if(val[val.length-1] === "." && wordCount === task.length-1){
+        val = val.slice(0, val.length);
+        let updatedTask = [...task];
+        if(val === task[wordCount].word){
+          updatedTask[wordCount].status = "success";
+          setTask(updatedTask);
+          setCorrectWordCount(correctWordCount+1);
+          setWordCount(wordCount+1);
+          setText('');
+          // alert("Done");
+          setIsGoing(false);
+          sendPerformanceData(Math.round((correctWordCount+1)/(wordCount+1)*100), Math.floor((correctWordCount+1)/(time/60)));
+          getPerformance(Math.round((correctWordCount+1)/(wordCount+1)*100), Math.floor((correctWordCount+1)/(time/60)));
+        }else{
+          updatedTask[wordCount].status = "fail";
+          setTask(updatedTask);
+        }
+      }
     }    
   }
 
@@ -141,15 +154,15 @@ function App(props) {
       <p id="given-text">{task.map((item, index) => 
         <span 
           key={index} 
-          style={ item.status === "success" ? { color: "green", fontWeight: 'bold'} : (
-            item.status === "fail" ? { color: "red", fontWeight: 'bold' } : (
+          style={ item.status === "success" ? { color: "green"} : (
+            item.status === "fail" ? { color: "red" } : (
               wordCount === index ? 
-              { color: "black", fontWeight: 'bold' } : 
+              { color: "black" } : 
               { color: "rgba(0,0,0,0.3)" }
             )
           )}>{item.word} </span> 
       )}</p>
-      <Input ref={inputRef} id="text-input" value={text} disabled={isGoing === true ? false : true} onChange={e => handleTextChange(e.target.value)}/>
+      <Input style={(task[wordCount] && task[wordCount].status === "fail") ?  {border: '3px solid red'} : null} ref={inputRef} id="text-input" value={text} disabled={isGoing === true ? false : true} onChange={e => handleTextChange(e.target.value)}/>
 
       <div className="stats">
       {
